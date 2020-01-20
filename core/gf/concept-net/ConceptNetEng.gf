@@ -4,21 +4,21 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
     SS : Type = {s : Str} ;
 
     -- There is a place in the LOCATION
-    placeInLocation : N -> N -> N -> SS =
-        \locationDictionary,locationData,objectRef ->
-            (mkUtt (mkThereIsAThing (mkCN locationDictionary (mkInAdv locationData)) objectRef)) ;
+    placeInLocation : N -> Adv -> N -> SS =
+        \locationDictionary_N,locationData_Adv,objectRef_N ->
+            (mkUtt (mkThereIsAThing (mkCN locationDictionary_N locationData_Adv) objectRef_N)) ;
 
     -- In the LOCATION there is a place
-    inLocationPlace : N -> N -> N -> SS =
-        \locationDictionary,locationData,objectRef ->
-            (mkUtt (mkS (mkInAdv locationData) (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary objectRef)))) ;
+    inLocationPlace : N -> Adv -> N -> SS =
+        \locationDictionary_N,locationData_Adv,objectRef_N ->
+            (mkUtt (mkS locationData_Adv (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary_N objectRef_N)))) ;
 
     -- VENUE in the LOCATION
-    venueInLocation : N -> N -> N -> SS =
-        \locationDictionary,locationData,objectRef ->
-            (mkUtt (mkThereIsAThing objectRef (mkInAdv locationData))) ;
+    venueInLocation : N -> Adv -> N -> SS =
+        \locationDictionary_N,locationData_Adv,objectRef_N ->
+            (mkUtt (mkThereIsAThing objectRef_N locationData_Adv)) ;
 
-    atLocation : N -> N -> N -> SS =
+    atLocation : N -> Adv -> N -> SS =
         \lexicon,arg0,arg1 ->
             ((placeInLocation lexicon arg0 arg1) | (inLocationPlace lexicon arg0 arg1) | (venueInLocation lexicon arg0 arg1)) ;
 

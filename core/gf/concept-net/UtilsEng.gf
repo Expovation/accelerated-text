@@ -1,4 +1,4 @@
-resource UtilsEng = open SyntaxEng in {
+resource UtilsEng = open SyntaxEng, ParadigmsEng in {
 
   -- Takes in a noun and produces 'in the NOUN'
   oper mkInAdv : N -> Adv = \noun -> SyntaxEng.mkAdv in_Prep (mkNP the_Det noun);
@@ -12,4 +12,6 @@ resource UtilsEng = open SyntaxEng in {
     mkThereIsAThing : CN -> N -> Cl = \descriptionCN,thingN -> mkCl (mkCN descriptionCN (mkNP thingN));
     mkThereIsAThing : N -> Adv -> Cl = \descriptionN,thingAdv -> mkCl (mkCN (mkCN descriptionN) thingAdv);
   };
+
+  oper doN : Str -> N = \w -> mkN w ;
 }
